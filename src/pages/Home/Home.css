@@ -1,0 +1,11 @@
+.maze {
+  margin-top: 8%;
+}
+.maze__col {
+  text-align: center;
+  padding: 4%;
+  border: 3px solid lightblue;
+}
+.maze__col-current {
+  background-color: lightcyan;
+}
