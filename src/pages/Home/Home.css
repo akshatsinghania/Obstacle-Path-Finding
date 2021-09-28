@@ -1,6 +1,4 @@
 .maze {
-  margin-top: 5%;
-  margin-left: 30%;
 }
 .maze__row {
   display: flex;
@@ -20,6 +18,7 @@
 .maze__col-end {
   background-color: rgba(255, 166, 0, 0.575);
 }
-.maze__add {
-  align-self: center;
+.size {
+  display: flex;
+  margin-top: 1%;
 }

@@ -1,9 +1,17 @@
 import React, { useEffect, useState } from "react";
-import { Alert, Col, Container, Row } from "react-bootstrap";
+import {
+  Alert,
+  Col,
+  Container,
+  FloatingLabel,
+  Form,
+  Row,
+} from "react-bootstrap";
 import "./Home.css";
 import { GrAdd } from "react-icons/gr";
 
 const Home = () => {
+  const [size, setSize] = useState({ row: 4, col: 4 });
   const [maze, setMaze] = useState([
     [0, 0, 0, 0],
     [1, 0, 1, 0],
@@ -15,12 +23,9 @@ const Home = () => {
   });
   const [error, setError] = useState("");
 
-  const addCol = (rowI) => {
-    var newMaze = [...maze];
-    if (newMaze[rowI].length < 28) {
-      newMaze[rowI].push(0);
-      setMaze(newMaze);
-    }
+  const changeCol = (value) => {
+    if (value > 12) setError("Max column size is 12");
+    else setSize({ ...size, col: value });
   };
   const toggleCol = (rowI, colI) => {
     var newMaze = [...maze];
@@ -31,12 +36,40 @@ const Home = () => {
     newMaze[rowI][colI] = col;
     setMaze(newMaze);
   };
+  function createAndFillTwoDArray(rows, columns, defaultValue) {
+    return Array.from({ length: rows }, () =>
+      Array.from({ length: columns }, () => defaultValue)
+    );
+  }
+  useEffect(() => {
+    setMaze(createAndFillTwoDArray(size.row, size.col, 0));
+  }, [size]);
   return (
     <>
+      <Container className="size">
+        <FloatingLabel controlId="floatingInput" label="Row Size">
+          <Form.Control
+            type="number"
+            value={size.row}
+            onChange={(e) => setSize({ ...size, row: e.target.value })}
+          />
+        </FloatingLabel>
+        <FloatingLabel controlId="floatingInput" label="Column Size">
+          <Form.Control
+            type="number"
+            value={size.col}
+            onChange={(e) => changeCol(e.target.value)}
+          />
+        </FloatingLabel>
+      </Container>
       {error && (
-        <Alert variant="danger" onClose={() => setError("")} dismissible>
-          <Alert.Heading>Oh snap! You got an error!</Alert.Heading>
-          <p>{error}</p>
+        <Alert
+          className="w-25"
+          variant="danger"
+          onClose={() => setError("")}
+          dismissible
+        >
+          <Alert.Heading>{error}</Alert.Heading>
         </Alert>
       )}
       <div className="maze">
@@ -55,8 +88,6 @@ const Home = () => {
                 />
               );
             })}
-
-            <GrAdd className="maze__add" onClick={() => addCol(rowI)} />
           </div>
         ))}
       </div>
