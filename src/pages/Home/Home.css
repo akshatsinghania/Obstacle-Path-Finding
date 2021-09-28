@@ -1,11 +1,25 @@
 .maze {
-  margin-top: 8%;
+  margin-top: 5%;
+  margin-left: 30%;
+}
+.maze__row {
+  display: flex;
 }
 .maze__col {
-  text-align: center;
-  padding: 4%;
-  border: 3px solid lightblue;
+  border: 2px solid lightblue;
+  width: 100px !important;
+  height: 100px;
+  margin: 1%;
 }
-.maze__col-current {
+.maze__col-path {
   background-color: lightcyan;
+}
+.maze__col-obstacle {
+  background-color: rgb(231, 231, 231);
+}
+.maze__col-end {
+  background-color: rgba(255, 166, 0, 0.575);
+}
+.maze__add {
+  align-self: center;
 }
